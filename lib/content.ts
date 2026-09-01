@@ -67,15 +67,6 @@ export const projects: readonly Project[] = [
       "Integração financeira crítica com resiliência real — idempotência, retry e reconciliação em produção.",
     stack: ["Node.js", "TypeScript", "PostgreSQL", "Webhooks", "REST"],
   },
-  {
-    title: "Migração Polling → WebSocket",
-    problem:
-      "O rastreamento veicular em tempo real da smartGPS dependia de polling — latência alta e carga desnecessária no backend.",
-    solution:
-      "Migração para WebSocket com dual-write, feature flag por cliente e cutover gradual — sem big bang, sem janela de manutenção.",
-    highlight: "p95 reduzido em ~70%, zero downtime durante a migração.",
-    stack: ["Node.js", "React", "WebSocket", "Feature Flags"],
-  },
 ];
 
 export interface Job {
