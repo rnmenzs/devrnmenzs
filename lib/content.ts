@@ -34,8 +34,8 @@ export const nav = [
 ] as const;
 
 export const about: readonly string[] = [
-  "Sou desenvolvedor fullstack com cerca de 2 anos de produção. Na smartGPS construí a nova plataforma SaaS da empresa do zero: o sistema de billing multi-tenant, o módulo de geração e assinatura digital de contratos, e as integrações com gateways de pagamento. Gosto de resolver o problema de ponta a ponta, do banco ao deploy.",
-  "Antes disso trabalhei com ERP corporativo em PHP (Baron Tech), rastreamento veicular em tempo real e dei aula de programação por um ano. Hoje curso a pós de Offensive Cyber Security na FIAP, unindo os dois lados que mais me interessam: construir bem e construir seguro.",
+  "Sou desenvolvedor fullstack com cerca de 2 anos de produção. Construí do zero uma plataforma SaaS multi-tenant: billing com webhooks idempotentes, retry e reconciliação, geração e assinatura digital de contratos e integrações com gateways de pagamento. Gosto de resolver o problema de ponta a ponta, do banco ao deploy.",
+  "No caminho, mantive ERP corporativo em PHP, fiz rastreamento veicular em tempo real e passei um ano dando aula de programação — base do jeito que reviso código e explico decisão técnica até hoje. Agora curso a pós de Offensive Cyber Security na FIAP, unindo os dois lados que mais me interessam: construir bem e construir seguro.",
 ];
 
 export interface Project {
