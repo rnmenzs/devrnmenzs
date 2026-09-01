@@ -168,6 +168,8 @@ export interface EducationEntry {
   period: string;
   status?: string;
   topics?: readonly string[];
+  /** Entrega final do curso (ex.: TCC), com link público opcional. */
+  finalProject?: { label: string; url?: string };
 }
 
 export const education: readonly EducationEntry[] = [
@@ -191,6 +193,11 @@ export const education: readonly EducationEntry[] = [
     degree: "CST em Análise e Desenvolvimento de Sistemas",
     school: "Fatec Dom Amaury Castanho",
     period: "2021 – 2024",
+    finalProject: {
+      label:
+        "TCC: aplicativo de Realidade Aumentada em Unity/C# para visualização de design de interiores em ambiente real",
+      url: "https://github.com/rnmenzs/AR_interior_design",
+    },
   },
 ];
 
