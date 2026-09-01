@@ -53,15 +53,15 @@ export default function GeekHero() {
           <BootLine d={2.1}>
             <Cmd>finger</Cmd> <Arg>renan</Arg>
           </BootLine>
-          <pre
-            aria-hidden="true"
-            className="geek-out mt-1 overflow-x-auto"
-            style={delay(2.8)}
-          >
-            {"Login: renan                     Name: "}
-            {site.name}
-            {"\nDirectory: /home/renan           Shell: /bin/zsh\nPlan:"}
-          </pre>
+          <div aria-hidden="true" className="geek-out mt-1" style={delay(2.8)}>
+            <div className="grid sm:grid-cols-[max-content_max-content] sm:gap-x-12">
+              <p>Login: renan</p>
+              <p>Name: {site.name}</p>
+              <p>Directory: /home/renan</p>
+              <p>Shell: /bin/zsh</p>
+            </div>
+            <p>Plan:</p>
+          </div>
         </div>
       </div>
 
