@@ -231,6 +231,7 @@ export const certificationTracks: readonly CertTrack[] = [
     items: [
       "Bootcamp Santander Cibersegurança — DIO, 2024 (fundamentos, pentest, deep web e anonimato, princípios)",
       "Aceleração Santander — Cibersegurança & Segurança em Vibe Coding — DIO, 2026",
+      "Introdução à Coleta e Análise de Segurança Cibernética — DIO, 2026",
     ],
   },
   {
