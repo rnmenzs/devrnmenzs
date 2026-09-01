@@ -1,16 +1,25 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { nav } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n/types";
+import type { Locale } from "@/lib/i18n/config";
 import { HOST } from "@/components/prompt";
+import LangSwitcher from "@/components/LangSwitcher";
 
 /**
- * Barra de título de terminal: semáforo decorativo, nome da sessão e links
- * de âncora. Menu mobile com toggle acessível.
+ * Barra de título de terminal: semáforo decorativo, nome da sessão, links
+ * de âncora e seletor de idioma. Menu mobile com toggle acessível.
  */
-export default function Nav() {
+export default function Nav({
+  dict,
+  lang,
+}: {
+  dict: Dictionary;
+  lang: Locale;
+}) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { nav, ui } = dict;
 
   return (
     <header
@@ -26,7 +35,7 @@ export default function Nav() {
         href="#conteudo"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:border focus:border-edge focus:bg-surface focus:px-4 focus:py-3 focus:text-sm focus:text-accent"
       >
-        Pular para o conteúdo
+        {ui.skipToContent}
       </a>
 
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-4 px-6">
@@ -43,10 +52,10 @@ export default function Nav() {
         </div>
 
         <div className="flex items-center gap-3">
-          <nav aria-label="Principal" className="hidden md:block">
+          <nav aria-label={ui.navPrimary} className="hidden md:block">
             <ul className="flex items-center gap-1">
               {nav.map((item) => (
-                <li key={item.href}>
+                <li key={item.id}>
                   <a
                     href={item.href}
                     className="flex min-h-11 items-center px-2.5 text-sm text-muted transition-colors duration-200 hover:text-accent"
@@ -58,10 +67,12 @@ export default function Nav() {
             </ul>
           </nav>
 
+          <LangSwitcher current={lang} className="hidden md:flex" />
+
           <button
             ref={buttonRef}
             type="button"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-label={open ? ui.closeMenu : ui.openMenu}
             aria-expanded={open}
             aria-controls="menu-mobile"
             onClick={() => setOpen((v) => !v)}
@@ -98,13 +109,13 @@ export default function Nav() {
 
       <nav
         id="menu-mobile"
-        aria-label="Principal (mobile)"
+        aria-label={ui.navPrimaryMobile}
         hidden={!open}
         className="border-t border-edge bg-surface md:hidden"
       >
         <ul className="px-3 py-2">
           {nav.map((item) => (
-            <li key={item.href}>
+            <li key={item.id}>
               <a
                 href={item.href}
                 onClick={() => setOpen(false)}
@@ -114,6 +125,9 @@ export default function Nav() {
               </a>
             </li>
           ))}
+          <li className="mt-1 border-t border-edge px-3 pt-2">
+            <LangSwitcher current={lang} className="flex" />
+          </li>
         </ul>
       </nav>
     </header>

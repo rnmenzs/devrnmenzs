@@ -1,12 +1,16 @@
 import type { ReactNode } from "react";
-import { nav } from "@/lib/content";
 import { Prompt } from "@/components/prompt";
 
-/** Deriva os ids válidos dos hrefs do nav (mesma técnica do Section original). */
-type AnchorId<H> = H extends `#${infer Id}` ? Id : never;
-type SectionId = AnchorId<(typeof nav)[number]["href"]>;
+/** Ids de âncora — invariantes entre idiomas (usados pelo nav e pelo scroll). */
+export type SectionId =
+  | "sobre"
+  | "projetos"
+  | "experiencia"
+  | "skills"
+  | "formacao"
+  | "contato";
 
-interface GeekSectionProps {
+interface SectionProps {
   id: SectionId;
   /** Linha de comando decorativa que "gera" a seção (compor com Cmd/Flag/Arg). */
   command: ReactNode;
@@ -14,13 +18,8 @@ interface GeekSectionProps {
   children: ReactNode;
 }
 
-/** Casca das seções geek: prompt + comando decorativos, título estilo heading markdown. */
-export default function Section({
-  id,
-  command,
-  title,
-  children,
-}: GeekSectionProps) {
+/** Casca das seções: prompt + comando decorativos, título estilo heading markdown. */
+export default function Section({ id, command, title, children }: SectionProps) {
   return (
     <section id={id} className="mx-auto w-full max-w-5xl px-6 py-14 sm:py-20">
       <p aria-hidden="true" className="text-sm">

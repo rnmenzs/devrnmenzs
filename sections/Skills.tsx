@@ -1,44 +1,18 @@
 import Section from "@/components/Section";
 import { Chip } from "@/components/Chip";
 import { Arg, Cmd, Flag, HOST } from "@/components/prompt";
-import { skills, skillsInTraining, skillsInTrainingNote } from "@/lib/content";
-
-/**
- * Porta "honesta" por grupo — o mapeamento é a piada: 3000 = dev server
- * (frontend), 8080 = http alternativo (backend), 5432 = Postgres,
- * 443 = TLS (segurança), 22 = ssh (infra), 80 = http (domínio de negócio).
- * SERVICE usa o nome real do nmap-services de cada porta; o conteúdo
- * (grupo + chips) vai na coluna VERSION, como num `-sV` de verdade.
- */
-const SCAN: Record<string, { port: string; service: string }> = {
-  Frontend: { port: "3000/tcp", service: "ppp" },
-  Backend: { port: "8080/tcp", service: "http-proxy" },
-  Bancos: { port: "5432/tcp", service: "postgresql" },
-  Segurança: { port: "443/tcp", service: "https" },
-  "Infra & DevSecOps": { port: "22/tcp", service: "ssh" },
-  Domínio: { port: "80/tcp", service: "http" },
-};
-
-/**
- * Skills em formação = portas "filtered": o serviço existe, mas ainda não
- * está aberto a tráfego de produção. Pareado por índice com skillsInTraining:
- * 5000 = Kestrel/.NET · 8000 = `python -m http.server` · 9000 = cslistener ·
- * 4444 = porta padrão do handler do Metasploit (segurança ofensiva).
- * Nomes de serviço são os do nmap-services de cada porta.
- */
-const TRAINING_SCAN: readonly { port: string; service: string }[] = [
-  { port: "5000/tcp", service: "upnp" },
-  { port: "8000/tcp", service: "http-alt" },
-  { port: "9000/tcp", service: "cslistener" },
-  { port: "4444/tcp", service: "krb524" },
-];
+import { skillScan, trainingScan } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n/types";
 
 /** Colunas PORT/STATE/SERVICE/VERSION; no mobile, VERSION quebra pra linha de baixo. */
 const ROW_GRID =
   "grid grid-cols-[5rem_4.5rem_1fr] items-baseline gap-x-2 sm:grid-cols-[6.5rem_4.5rem_6rem_1fr]";
 
+const FALLBACK = { port: "1337/tcp", service: "unknown" };
+
 /** Skills como saída de um `nmap -sV`: produção = open, em formação = filtered. */
-export default function Skills() {
+export default function Skills({ dict }: { dict: Dictionary }) {
+  const { ui } = dict;
   return (
     <Section
       id="skills"
@@ -47,7 +21,7 @@ export default function Skills() {
           <Cmd>nmap</Cmd> <Flag>-sV</Flag> <Arg>{HOST}</Arg>
         </>
       }
-      title="Stack & Skills"
+      title={dict.titles.skills}
     >
       <p aria-hidden="true" className="g-dim text-xs">
         Nmap scan report for {HOST} (127.0.0.1)
@@ -56,10 +30,7 @@ export default function Skills() {
         Host is up (0.000042s latency).
       </p>
 
-      <p
-        aria-hidden="true"
-        className={`mt-4 ${ROW_GRID} text-xs text-muted`}
-      >
+      <p aria-hidden="true" className={`mt-4 ${ROW_GRID} text-xs text-muted`}>
         <span>PORT</span>
         <span>STATE</span>
         <span>SERVICE</span>
@@ -67,13 +38,10 @@ export default function Skills() {
       </p>
 
       <ul className="mt-1 flex flex-col">
-        {skills.map(({ group, items, tone }) => {
-          const scan = SCAN[group] ?? { port: "1337/tcp", service: "unknown" };
+        {dict.skills.map(({ id, group, items, tone }) => {
+          const scan = skillScan[id] ?? FALLBACK;
           return (
-            <li
-              key={group}
-              className="border-b border-edge py-4 last:border-b-0"
-            >
+            <li key={id} className="border-b border-edge py-4 last:border-b-0">
               <div className={`${ROW_GRID} text-sm`}>
                 <span aria-hidden="true" className="g-cyan">
                   {scan.port}
@@ -94,7 +62,7 @@ export default function Skills() {
               </div>
               <ul
                 className="mt-3 flex flex-wrap gap-2 sm:mt-1.5 sm:pl-74"
-                aria-label={`Skills de ${group}`}
+                aria-label={`${ui.ariaSkillsOf} ${group}`}
               >
                 {items.map((item) => (
                   <Chip key={item}>{item}</Chip>
@@ -105,14 +73,11 @@ export default function Skills() {
         })}
       </ul>
 
-      <p className="mt-6 text-xs text-muted">{skillsInTrainingNote}</p>
+      <p className="mt-6 text-xs text-muted">{dict.skillsInTrainingNote}</p>
 
-      <ul className="mt-1 flex flex-col" aria-label="Skills em formação">
-        {skillsInTraining.map((item, i) => {
-          const scan = TRAINING_SCAN[i] ?? {
-            port: "1337/tcp",
-            service: "unknown",
-          };
+      <ul className="mt-1 flex flex-col" aria-label={ui.ariaSkillsInTraining}>
+        {dict.skillsInTraining.map((item, i) => {
+          const scan = trainingScan[i] ?? FALLBACK;
           return (
             <li key={item} className="border-b border-edge py-3 last:border-b-0">
               <div className={`${ROW_GRID} text-sm`}>
