@@ -5,9 +5,12 @@ import type { NextConfig } from "next";
  * CSP sem nonce: 'unsafe-inline' em script/style é exigência do runtime do
  * Next em site estático; todo o resto fica travado em 'self'.
  */
+const isDev = process.env.NODE_ENV === "development";
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  // 'unsafe-eval' só em dev: o React usa eval() para debug (overlay/stacks)
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self'",
