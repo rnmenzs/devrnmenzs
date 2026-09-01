@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { site } from "@/lib/content";
-import { Arg, Cmd, Flag, HOST, Prompt } from "@/components/terminal/prompt";
+import { Arg, Cmd, Flag, HOST, Prompt } from "@/components/prompt";
 
 /** Delay de animação por linha (consumido por .geek-out/.geek-typed). */
 const delay = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;

@@ -1,6 +1,6 @@
-import Section from "@/components/layout/Section";
-import { Chip } from "@/components/ui/Chip";
-import { Arg, Cmd } from "@/components/terminal/prompt";
+import Section from "@/components/Section";
+import { Chip } from "@/components/Chip";
+import { Arg, Cmd } from "@/components/prompt";
 import { projects } from "@/lib/content";
 
 /** Nome de arquivo determinístico a partir do título do projeto (só decoração). */

@@ -1,6 +1,6 @@
-import Section from "@/components/layout/Section";
-import { Chip } from "@/components/ui/Chip";
-import { Arg, Cmd, Flag, HOST } from "@/components/terminal/prompt";
+import Section from "@/components/Section";
+import { Chip } from "@/components/Chip";
+import { Arg, Cmd, Flag, HOST } from "@/components/prompt";
 import { skills, skillsInTraining, skillsInTrainingNote } from "@/lib/content";
 
 /**

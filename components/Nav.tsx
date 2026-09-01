@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { nav } from "@/lib/content";
-import { HOST } from "@/components/terminal/prompt";
+import { HOST } from "@/components/prompt";
 
 /**
  * Barra de título de terminal: semáforo decorativo, nome da sessão e links

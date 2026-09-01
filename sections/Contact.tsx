@@ -1,6 +1,6 @@
-import Section from "@/components/layout/Section";
-import { Cmd, Flag } from "@/components/terminal/prompt";
-import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
+import Section from "@/components/Section";
+import { Cmd, Flag } from "@/components/prompt";
+import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { contact, site } from "@/lib/content";
 
 /** Contato — mesmo conteúdo da versão clean, embrulhado na sessão. */

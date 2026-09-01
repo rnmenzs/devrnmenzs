@@ -1,5 +1,5 @@
-import Section from "@/components/layout/Section";
-import { Arg, Cmd, Flag } from "@/components/terminal/prompt";
+import Section from "@/components/Section";
+import { Arg, Cmd, Flag } from "@/components/prompt";
 import { experience } from "@/lib/content";
 
 /** Hash fake determinístico (estilo git) a partir de empresa+período — só decoração. */

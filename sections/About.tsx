@@ -1,5 +1,5 @@
-import Section from "@/components/layout/Section";
-import { Arg, Cmd } from "@/components/terminal/prompt";
+import Section from "@/components/Section";
+import { Arg, Cmd } from "@/components/prompt";
 import { about } from "@/lib/content";
 
 /** Seção sobre — saída de um simples `cat`. */

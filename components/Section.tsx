@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { nav } from "@/lib/content";
-import { Prompt } from "@/components/terminal/prompt";
+import { Prompt } from "@/components/prompt";
 
 /** Deriva os ids válidos dos hrefs do nav (mesma técnica do Section original). */
 type AnchorId<H> = H extends `#${infer Id}` ? Id : never;

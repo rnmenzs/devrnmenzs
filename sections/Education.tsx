@@ -1,6 +1,6 @@
-import Section from "@/components/layout/Section";
-import { Chip } from "@/components/ui/Chip";
-import { Arg, Cmd, Flag, Prompt } from "@/components/terminal/prompt";
+import Section from "@/components/Section";
+import { Chip } from "@/components/Chip";
+import { Arg, Cmd, Flag, Prompt } from "@/components/prompt";
 import { certificationTracks, education } from "@/lib/content";
 
 const MONTHS: Record<string, number> = {
