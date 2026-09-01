@@ -34,7 +34,7 @@ const TRAINING_SCAN: readonly { port: string; service: string }[] = [
 
 /** Colunas PORT/STATE/SERVICE/VERSION; no mobile, VERSION quebra pra linha de baixo. */
 const ROW_GRID =
-  "grid grid-cols-[6.5rem_4.5rem_1fr] items-baseline gap-x-2 sm:grid-cols-[6.5rem_4.5rem_6rem_1fr]";
+  "grid grid-cols-[5rem_4.5rem_1fr] items-baseline gap-x-2 sm:grid-cols-[6.5rem_4.5rem_6rem_1fr]";
 
 /** Skills como saída de um `nmap -sV`: produção = open, em formação = filtered. */
 export default function GeekSkills() {
