@@ -88,7 +88,7 @@ export const experience: readonly Job[] = [
       "Sistema completo de billing com webhooks idempotentes, retry com backoff exponencial e reconciliação",
       "Módulo de geração e assinatura digital de contratos, com integração a gateways de pagamento e APIs de assinatura eletrônica",
       "Segurança em produção: sessão HMAC com identidade delegada, origin trust fail-closed, isolamento de segredos e tratamento de PII",
-      "DevSecOps: containerização multi-stage, Docker Swarm com rolling update sem downtime, migrações idempotentes",
+      "Deploy da plataforma em containers (Docker Swarm) com rolling update sem downtime e migrações idempotentes",
     ],
   },
   {
@@ -149,7 +149,7 @@ export const skills: readonly SkillGroup[] = [
   },
   {
     group: "Infra & DevSecOps",
-    items: ["Docker", "Docker Swarm", "CI/CD", "Google Cloud Storage", "Git"],
+    items: ["CI/CD", "Google Cloud Storage", "Git"],
   },
   {
     group: "Domínio",
