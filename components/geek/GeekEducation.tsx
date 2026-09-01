@@ -1,6 +1,6 @@
 import GeekSection from "@/components/geek/GeekSection";
-import { Arg, Cmd } from "@/components/geek/prompt";
-import { certifications, education } from "@/lib/content";
+import { Arg, Cmd, Flag, Prompt } from "@/components/geek/prompt";
+import { certificationTracks, education } from "@/lib/content";
 
 const MONTHS: Record<string, number> = {
   Jan: 0,
@@ -33,16 +33,43 @@ function elapsedFraction(period: string) {
 
 const BAR_WIDTH = 22;
 
-/** Barra estilo apt/pacman para formação em andamento (decorativa). */
+/** Nome de pacote decorativo derivado da instituição (formacao-fiap, formacao-fatec). */
+function pkgName(school: string) {
+  return `formacao-${school.split(" ")[0].toLowerCase()}`;
+}
+
+/** Ano final do período vira a "versão" do pacote na linha de configuração. */
+function pkgVersion(period: string) {
+  const years = period.match(/\d{4}/g);
+  return years ? years[years.length - 1] : period;
+}
+
+/** Barra estilo apt/pacman para formação em andamento (decorativa, nunca 100%). */
 function ProgressBar({ period }: { period: string }) {
-  const fill = Math.round(elapsedFraction(period) * BAR_WIDTH);
+  const fraction = elapsedFraction(period);
+  const fill = Math.round(fraction * BAR_WIDTH);
+  const pct = Math.round(fraction * 100);
   return (
     <p aria-hidden="true" className="mt-3 text-xs">
       <span className="text-accent">{"█".repeat(fill)}</span>
       <span className="text-edge">{"░".repeat(BAR_WIDTH - fill)}</span>
-      <span className="g-dim"> baixando módulos…</span>
+      <span className="g-dim"> {pct}% · baixando módulos…</span>
     </p>
   );
+}
+
+/**
+ * "Nome — meta (detalhe)" → nome + resto em muted; itens sem travessão
+ * caem no parêntese final ou ficam inteiros.
+ */
+function splitCert(item: string) {
+  const dash = item.split(" — ");
+  if (dash.length > 1) {
+    return { name: dash[0], meta: dash.slice(1).join(" — ") };
+  }
+  const m = item.match(/^(.*?)\s*\((.+)\)$/);
+  if (m) return { name: m[1], meta: m[2] };
+  return { name: item, meta: null };
 }
 
 /** Formação como instalação de pacotes; certificações como listagem dpkg. */
@@ -57,9 +84,12 @@ export default function GeekEducation() {
       }
       title="Formação & Certificações"
     >
-      <p aria-hidden="true" className="g-dim text-xs">
-        [sudo] senha para visitor: ********
-      </p>
+      <div aria-hidden="true" className="g-dim text-xs leading-relaxed">
+        <p>[sudo] senha para visitor:</p>
+        <p>Lendo listas de pacotes... Pronto</p>
+        <p>Construindo árvore de dependências...</p>
+        <p>Lendo informação de estado... Pronto</p>
+      </div>
 
       <div className="mt-6 flex flex-col gap-6">
         {education.map((edu) => {
@@ -85,8 +115,9 @@ export default function GeekEducation() {
               {emAndamento ? (
                 <ProgressBar period={edu.period} />
               ) : (
-                <p aria-hidden="true" className="mt-3 text-xs text-accent">
-                  ✓ instalado
+                <p aria-hidden="true" className="g-dim mt-3 text-xs">
+                  Configurando {pkgName(edu.school)} ({pkgVersion(edu.period)})
+                  ...
                 </p>
               )}
               {edu.topics ? (
@@ -115,24 +146,42 @@ export default function GeekEducation() {
         </span>
         Certificações
       </h3>
-      <ul className="mt-4 space-y-1.5 text-sm">
-        {certifications.map((cert) => {
-          const m = cert.match(/^(.*?)\s*\((.+)\)$/);
-          const name = m ? m[1] : cert;
-          const issuer = m ? m[2] : null;
-          return (
-            <li key={cert} className="flex items-baseline gap-3">
-              <span aria-hidden="true" className="g-dim shrink-0">
-                ii
+      <p aria-hidden="true" className="mt-4 text-sm">
+        <Prompt />
+        <Cmd>dpkg</Cmd> <Flag>-l</Flag> <span className="text-muted">|</span>{" "}
+        <Cmd>grep</Cmd> <Flag>-i</Flag> <Arg>cert</Arg>
+      </p>
+
+      <div className="mt-4 flex flex-col gap-6">
+        {certificationTracks.map((track) => (
+          <div key={track.track}>
+            <h4 className="text-sm font-bold text-fg">
+              <span aria-hidden="true" className="g-dim">
+                {"### "}
               </span>
-              <span className="text-fg">
-                {name}
-                {issuer ? <span className="text-muted"> · {issuer}</span> : null}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
+              {track.track}
+            </h4>
+            <ul className="mt-2 space-y-1.5 text-sm">
+              {track.items.map((item) => {
+                const { name, meta } = splitCert(item);
+                return (
+                  <li key={item} className="flex items-baseline gap-3">
+                    <span aria-hidden="true" className="g-dim shrink-0">
+                      ii
+                    </span>
+                    <span className="text-fg">
+                      {name}
+                      {meta ? (
+                        <span className="text-muted"> · {meta}</span>
+                      ) : null}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
     </GeekSection>
   );
 }

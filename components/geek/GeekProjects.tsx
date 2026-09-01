@@ -26,20 +26,18 @@ export default function GeekProjects() {
       title="Projetos em destaque"
     >
       <div className="flex flex-col gap-8">
-        {projects.map((project, i) => (
+        {projects.map((project) => (
           <article
             key={project.title}
             className="overflow-hidden rounded-md border border-edge bg-surface"
           >
             <div
               aria-hidden="true"
-              className="flex items-center justify-between gap-4 border-b border-edge bg-surface-2 px-5 py-2 text-xs sm:px-6"
+              className="truncate border-b border-edge bg-surface-2 px-5 py-2 text-xs sm:px-6"
             >
-              <span className="g-cyan min-w-0 truncate">
-                ▍<span className="text-fg">{toFilename(project.title)}</span>
-              </span>
-              <span className="g-dim shrink-0 max-sm:hidden">
-                {i + 1}/{projects.length} · utf-8 · md
+              <span className="g-dim">File: </span>
+              <span className="font-bold text-fg">
+                projetos/{toFilename(project.title)}
               </span>
             </div>
 

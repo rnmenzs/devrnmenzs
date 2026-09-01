@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { site } from "@/lib/content";
-import { Arg, Cmd, GEEK_HOST, Prompt } from "@/components/geek/prompt";
+import { Arg, Cmd, Flag, GEEK_HOST, Prompt } from "@/components/geek/prompt";
 
 /** Delay de animação por linha (consumido por .geek-out/.geek-typed). */
 const delay = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
@@ -36,12 +36,8 @@ export default function GeekHero() {
         <BootLine d={0} host="local">
           <Cmd>ssh</Cmd> <Arg>visitor@{GEEK_HOST}</Arg>
         </BootLine>
-        <p
-          aria-hidden="true"
-          className="geek-out mt-1 text-accent"
-          style={delay(0.7)}
-        >
-          conexão segura estabelecida ✓
+        <p aria-hidden="true" className="geek-out mt-1" style={delay(0.7)}>
+          Last login: Mon Aug 31 22:14:07 2026 from 45.170.12.34
         </p>
 
         <div className="mt-4">
@@ -57,10 +53,19 @@ export default function GeekHero() {
           <BootLine d={2.1}>
             <Cmd>finger</Cmd> <Arg>renan</Arg>
           </BootLine>
+          <pre
+            aria-hidden="true"
+            className="geek-out mt-1 overflow-x-auto"
+            style={delay(2.8)}
+          >
+            {"Login: renan                     Name: "}
+            {site.name}
+            {"\nDirectory: /home/renan           Shell: /bin/zsh\nPlan:"}
+          </pre>
         </div>
       </div>
 
-      <div className="geek-out" style={delay(2.8)}>
+      <div className="geek-out" style={delay(3.2)}>
         <pre
           aria-hidden="true"
           className="geek-banner mt-6 select-none text-[clamp(1.05rem,4.6vw,2.35rem)] font-bold leading-[1.15]"
@@ -79,13 +84,13 @@ export default function GeekHero() {
       </div>
 
       <div className="mt-10 text-sm">
-        <BootLine d={3.5}>
-          <Cmd>ls</Cmd> <Arg>~/links</Arg>
+        <BootLine d={3.9}>
+          <Cmd>ls</Cmd> <Flag>-F</Flag> <Arg>~/links</Arg>
         </BootLine>
 
         <ul
           className="geek-out mt-2 flex flex-wrap gap-x-7 gap-y-2"
-          style={delay(4.1)}
+          style={delay(4.5)}
           aria-label="Links principais"
         >
           <li>
@@ -113,7 +118,7 @@ export default function GeekHero() {
               href="#contato"
               className="g-yellow inline-flex min-h-11 items-center hover:underline"
             >
-              contato.txt
+              contato.sh*
             </a>
           </li>
           {site.cvAvailable ? (
@@ -132,7 +137,7 @@ export default function GeekHero() {
         <p
           aria-hidden="true"
           className="geek-out geek-cursor mt-6"
-          style={delay(4.5)}
+          style={delay(4.9)}
         >
           <Prompt />
         </p>

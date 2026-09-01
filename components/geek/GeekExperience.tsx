@@ -1,5 +1,5 @@
 import GeekSection from "@/components/geek/GeekSection";
-import { Arg, Cmd } from "@/components/geek/prompt";
+import { Arg, Cmd, Flag } from "@/components/geek/prompt";
 import { experience } from "@/lib/content";
 
 /** Hash fake determinístico (estilo git) a partir de empresa+período — só decoração. */
@@ -16,8 +16,8 @@ export default function GeekExperience() {
       id="experiencia"
       command={
         <>
-          <Cmd>cd</Cmd> <Arg>~/carreira</Arg>{" "}
-          <span className="text-muted">&&</span> <Cmd>git</Cmd> log
+          <Cmd>git</Cmd> <Flag>-C</Flag> <Arg>~/carreira</Arg> log{" "}
+          <Flag>--abbrev-commit</Flag>
         </>
       }
       title="Experiência"

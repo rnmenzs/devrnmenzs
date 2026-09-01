@@ -194,14 +194,53 @@ export const education: readonly EducationEntry[] = [
   },
 ];
 
-export const certifications: readonly string[] = [
-  "REST com Node.js (Alura)",
-  "HTTP (Alura)",
-  "Autenticação JWT com Node/TS (DIO)",
-  "Fundamentos de Testes de Invasão/Pentest (DIO)",
-  "Fundamentos de Cibersegurança (DIO)",
-  "Programação OO com C# (DIO)",
-  "Fundamentos da IA Moderna: ML, LLMs, IA Generativa e Agentes (DIO)",
+/**
+ * Skills em formação (handoff v2): estudo formal DIO/Alura — coursework,
+ * ainda SEM produção. Nunca misturar com os grupos de produção acima.
+ */
+export const skillsInTraining: readonly string[] = [
+  "C# / .NET",
+  "Python (fundamentos + análise de dados)",
+  "GenAI & Engenharia de Prompt",
+  "Segurança ofensiva (pós FIAP, em andamento)",
+];
+
+export const skillsInTrainingNote =
+  "Estudo formal (DIO/Alura) — ainda sem uso em produção.";
+
+export interface CertTrack {
+  track: string;
+  items: readonly string[];
+}
+
+/** Certificações agrupadas por trilha (handoff v2) — não listar cursos soltos. */
+export const certificationTracks: readonly CertTrack[] = [
+  {
+    track: "Formações (DIO / Alura)",
+    items: [
+      "Formação TypeScript Fullstack Developer — DIO, 2024 (React + Node + TS + TypeORM + testes)",
+      "Formação C#/.NET Developer — DIO, 2025 (POO, estrutura de dados, APIs, .NET)",
+      "GenAI & Engenharia de Prompt — DIO, 2026 (IA Generativa, LLMs, prompting, Copilot)",
+      "Python & Análise de Dados — DIO, 2026 (Python, análise de dados, detecção de anomalias, SQL/BI)",
+      "Fundamentos de Desenvolvimento com PHP — DIO, 2024",
+      "Acessibilidade Web — Alura (front-end inclusivo, componentes acessíveis)",
+    ],
+  },
+  {
+    track: "Cibersegurança",
+    items: [
+      "Bootcamp Santander Cibersegurança — DIO, 2024 (fundamentos, pentest, deep web e anonimato, princípios)",
+      "Aceleração Santander — Cibersegurança & Segurança em Vibe Coding — DIO, 2026",
+    ],
+  },
+  {
+    track: "Backend/Web (Alura)",
+    items: [
+      "REST com Node.js (Express + MySQL)",
+      "HTTP",
+      "Autenticação JWT com Node/TS",
+    ],
+  },
 ];
 
 export const contact = {
