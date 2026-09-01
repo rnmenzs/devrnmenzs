@@ -1,12 +1,19 @@
 import { ImageResponse } from "next/og";
-import { seo, site } from "@/lib/content";
+import { site } from "@/lib/content";
+import { isLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
-export const alt = `${site.name} — ${site.headline}`;
+export const alt = site.name;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Preview OG na paleta do terminal Red Team Ops (app/geek.css). */
-export default function OpengraphImage() {
+/** Preview OG na paleta do terminal Red Team Ops, com headline do idioma. */
+export default async function OpengraphImage({
+  params,
+}: PageProps<"/[lang]">) {
+  const { lang } = await params;
+  const dict = getDictionary(isLocale(lang) ? lang : "pt");
+
   return new ImageResponse(
     (
       <div
@@ -47,7 +54,7 @@ export default function OpengraphImage() {
           {site.name}
         </div>
         <div style={{ display: "flex", fontSize: 40, color: "#ff8a80" }}>
-          {site.headline}
+          {dict.site.headline}
         </div>
         <div
           style={{
@@ -57,7 +64,7 @@ export default function OpengraphImage() {
             color: "#7ce38b",
           }}
         >
-          {seo.ogStackLine}
+          {dict.seo.ogStackLine}
         </div>
       </div>
     ),
