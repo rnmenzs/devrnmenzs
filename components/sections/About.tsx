@@ -1,11 +1,11 @@
-import GeekSection from "@/components/geek/GeekSection";
-import { Arg, Cmd } from "@/components/geek/prompt";
+import Section from "@/components/layout/Section";
+import { Arg, Cmd } from "@/components/terminal/prompt";
 import { about } from "@/lib/content";
 
 /** Seção sobre — saída de um simples `cat`. */
-export default function GeekAbout() {
+export default function About() {
   return (
-    <GeekSection
+    <Section
       id="sobre"
       command={
         <>
@@ -19,6 +19,6 @@ export default function GeekAbout() {
           <p key={paragraph}>{paragraph}</p>
         ))}
       </div>
-    </GeekSection>
+    </Section>
   );
 }

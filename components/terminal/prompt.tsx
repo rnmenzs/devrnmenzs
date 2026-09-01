@@ -6,10 +6,10 @@ import type { ReactNode } from "react";
  */
 
 /** Host da sessão geek = domínio/handle (fonte única p/ prompt, nav e ssh). */
-export const GEEK_HOST = "rnmenzs";
+export const HOST = "rnmenzs";
 
 /** Prompt da sessão: visitor@rnmenzs:~$ (antes do ssh, host="local"). */
-export function Prompt({ host = GEEK_HOST }: { host?: string }) {
+export function Prompt({ host = HOST }: { host?: string }) {
   return (
     <span>
       <span className="text-accent">visitor</span>

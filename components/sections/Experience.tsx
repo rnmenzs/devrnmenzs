@@ -1,5 +1,5 @@
-import GeekSection from "@/components/geek/GeekSection";
-import { Arg, Cmd, Flag } from "@/components/geek/prompt";
+import Section from "@/components/layout/Section";
+import { Arg, Cmd, Flag } from "@/components/terminal/prompt";
 import { experience } from "@/lib/content";
 
 /** Hash fake determinístico (estilo git) a partir de empresa+período — só decoração. */
@@ -10,9 +10,9 @@ function fakeHash(seed: string) {
 }
 
 /** Experiência como `git log`: cada cargo é um commit na linha do tempo. */
-export default function GeekExperience() {
+export default function Experience() {
   return (
-    <GeekSection
+    <Section
       id="experiencia"
       command={
         <>
@@ -73,6 +73,6 @@ export default function GeekExperience() {
           </li>
         ))}
       </ol>
-    </GeekSection>
+    </Section>
   );
 }

@@ -1,5 +1,6 @@
-import GeekSection from "@/components/geek/GeekSection";
-import { Arg, Cmd, Flag, GEEK_HOST } from "@/components/geek/prompt";
+import Section from "@/components/layout/Section";
+import { Chip } from "@/components/ui/Chip";
+import { Arg, Cmd, Flag, HOST } from "@/components/terminal/prompt";
 import { skills, skillsInTraining, skillsInTrainingNote } from "@/lib/content";
 
 /**
@@ -37,19 +38,19 @@ const ROW_GRID =
   "grid grid-cols-[5rem_4.5rem_1fr] items-baseline gap-x-2 sm:grid-cols-[6.5rem_4.5rem_6rem_1fr]";
 
 /** Skills como saída de um `nmap -sV`: produção = open, em formação = filtered. */
-export default function GeekSkills() {
+export default function Skills() {
   return (
-    <GeekSection
+    <Section
       id="skills"
       command={
         <>
-          <Cmd>nmap</Cmd> <Flag>-sV</Flag> <Arg>{GEEK_HOST}</Arg>
+          <Cmd>nmap</Cmd> <Flag>-sV</Flag> <Arg>{HOST}</Arg>
         </>
       }
       title="Stack & Skills"
     >
       <p aria-hidden="true" className="g-dim text-xs">
-        Nmap scan report for {GEEK_HOST} (127.0.0.1)
+        Nmap scan report for {HOST} (127.0.0.1)
       </p>
       <p aria-hidden="true" className="g-dim text-xs">
         Host is up (0.000042s latency).
@@ -96,12 +97,7 @@ export default function GeekSkills() {
                 aria-label={`Skills de ${group}`}
               >
                 {items.map((item) => (
-                  <li
-                    key={item}
-                    className="rounded-sm border border-edge bg-surface-2 px-2.5 py-1 text-xs text-fg"
-                  >
-                    {item}
-                  </li>
+                  <Chip key={item}>{item}</Chip>
                 ))}
               </ul>
             </li>
@@ -142,6 +138,6 @@ export default function GeekSkills() {
         Service detection performed. Please report any incorrect results at
         https://nmap.org/submit/ .
       </p>
-    </GeekSection>
+    </Section>
   );
 }

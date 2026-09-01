@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { nav } from "@/lib/content";
-import { Prompt } from "@/components/geek/prompt";
+import { Prompt } from "@/components/terminal/prompt";
 
 /** Deriva os ids válidos dos hrefs do nav (mesma técnica do Section original). */
 type AnchorId<H> = H extends `#${infer Id}` ? Id : never;
@@ -15,7 +15,7 @@ interface GeekSectionProps {
 }
 
 /** Casca das seções geek: prompt + comando decorativos, título estilo heading markdown. */
-export default function GeekSection({
+export default function Section({
   id,
   command,
   title,

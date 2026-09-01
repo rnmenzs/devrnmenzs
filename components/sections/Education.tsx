@@ -1,5 +1,6 @@
-import GeekSection from "@/components/geek/GeekSection";
-import { Arg, Cmd, Flag, Prompt } from "@/components/geek/prompt";
+import Section from "@/components/layout/Section";
+import { Chip } from "@/components/ui/Chip";
+import { Arg, Cmd, Flag, Prompt } from "@/components/terminal/prompt";
 import { certificationTracks, education } from "@/lib/content";
 
 const MONTHS: Record<string, number> = {
@@ -73,9 +74,9 @@ function splitCert(item: string) {
 }
 
 /** Formação como instalação de pacotes; certificações como listagem dpkg. */
-export default function GeekEducation() {
+export default function Education() {
   return (
-    <GeekSection
+    <Section
       id="formacao"
       command={
         <>
@@ -126,12 +127,7 @@ export default function GeekEducation() {
                   aria-label={`Módulos de ${edu.degree}`}
                 >
                   {edu.topics.map((topic) => (
-                    <li
-                      key={topic}
-                      className="rounded-sm border border-edge bg-surface-2 px-2.5 py-1 text-xs text-fg"
-                    >
-                      {topic}
-                    </li>
+                    <Chip key={topic}>{topic}</Chip>
                   ))}
                 </ul>
               ) : null}
@@ -182,6 +178,6 @@ export default function GeekEducation() {
           </div>
         ))}
       </div>
-    </GeekSection>
+    </Section>
   );
 }

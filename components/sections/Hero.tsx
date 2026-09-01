@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { site } from "@/lib/content";
-import { Arg, Cmd, Flag, GEEK_HOST, Prompt } from "@/components/geek/prompt";
+import { Arg, Cmd, Flag, HOST, Prompt } from "@/components/terminal/prompt";
 
 /** Delay de animação por linha (consumido por .geek-out/.geek-typed). */
 const delay = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
@@ -26,7 +26,7 @@ function BootLine({
 }
 
 /** Hero geek: boot de uma sessão ssh (CSS puro; some com prefers-reduced-motion). */
-export default function GeekHero() {
+export default function Hero() {
   return (
     <section
       id="inicio"
@@ -34,7 +34,7 @@ export default function GeekHero() {
     >
       <div className="text-sm">
         <BootLine d={0} host="local">
-          <Cmd>ssh</Cmd> <Arg>visitor@{GEEK_HOST}</Arg>
+          <Cmd>ssh</Cmd> <Arg>visitor@{HOST}</Arg>
         </BootLine>
         <p aria-hidden="true" className="geek-out mt-1" style={delay(0.7)}>
           Last login: Mon Aug 31 22:14:07 2026 from 45.170.12.34

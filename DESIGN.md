@@ -32,8 +32,13 @@ base herdados (usados por `_not-found`); `.geek` os remapeia.
 - **Conteúdo**: importar de `@/lib/content` — NUNCA hardcodar texto que exista lá.
   Guardrails do handoff valem sempre (sem telefone; FIAP "em andamento";
   "integração com LLM"; nada inventado que leia como fato).
-- **Identidade da sessão**: prompt `visitor@rnmenzs:~$` (host = `GEEK_HOST` em
-  `components/geek/prompt.tsx`); cwd `~` consistente em todas as seções — um
+- **Estrutura de componentes**: `components/layout/` (chrome do terminal: Nav,
+  Footer, Section) · `components/sections/` (uma por seção da página) ·
+  `components/terminal/` (primitivas da metáfora: Prompt, Cmd, Flag, Arg) ·
+  `components/ui/` (Chip, ícones). A classe CSS `.geek` (escopo do tema em
+  `app/geek.css`) mantém o nome histórico.
+- **Identidade da sessão**: prompt `visitor@rnmenzs:~$` (host = `HOST` em
+  `components/terminal/prompt.tsx`); cwd `~` consistente em todas as seções — um
   comando decorativo nunca pode mudar o cwd (use `git -C`, caminhos absolutos).
 - **Metáforas por seção** (estrutura que informa): hero = boot `ssh` +
   `whoami` + `finger renan` (formato real do finger: Login/Name/Directory/

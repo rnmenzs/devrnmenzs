@@ -2,13 +2,13 @@
 
 import { useRef, useState } from "react";
 import { nav } from "@/lib/content";
-import { GEEK_HOST } from "@/components/geek/prompt";
+import { HOST } from "@/components/terminal/prompt";
 
 /**
  * Barra de título de terminal: semáforo decorativo, nome da sessão e links
  * de âncora. Menu mobile com toggle acessível.
  */
-export default function GeekNav() {
+export default function Nav() {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -38,7 +38,7 @@ export default function GeekNav() {
           </span>
 
           <span className="flex min-h-11 items-center text-sm text-muted">
-            visitor@{GEEK_HOST}:~
+            visitor@{HOST}:~
           </span>
         </div>
 

@@ -1,5 +1,6 @@
-import GeekSection from "@/components/geek/GeekSection";
-import { Arg, Cmd } from "@/components/geek/prompt";
+import Section from "@/components/layout/Section";
+import { Chip } from "@/components/ui/Chip";
+import { Arg, Cmd } from "@/components/terminal/prompt";
 import { projects } from "@/lib/content";
 
 /** Nome de arquivo determinístico a partir do título do projeto (só decoração). */
@@ -14,9 +15,9 @@ function toFilename(title: string) {
 }
 
 /** Projetos como arquivos markdown abertos no `bat` (header de arquivo + corpo). */
-export default function GeekProjects() {
+export default function Projects() {
   return (
-    <GeekSection
+    <Section
       id="projetos"
       command={
         <>
@@ -95,18 +96,13 @@ export default function GeekProjects() {
                 aria-label={`Stack do projeto ${project.title}`}
               >
                 {project.stack.map((tech) => (
-                  <li
-                    key={tech}
-                    className="rounded-sm border border-edge bg-surface-2 px-2.5 py-1 text-xs text-fg"
-                  >
-                    {tech}
-                  </li>
+                  <Chip key={tech}>{tech}</Chip>
                 ))}
               </ul>
             </div>
           </article>
         ))}
       </div>
-    </GeekSection>
+    </Section>
   );
 }

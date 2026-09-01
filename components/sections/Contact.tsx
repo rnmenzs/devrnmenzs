@@ -1,12 +1,12 @@
-import GeekSection from "@/components/geek/GeekSection";
-import { Cmd, Flag } from "@/components/geek/prompt";
-import { GitHubIcon, LinkedInIcon } from "@/components/icons";
+import Section from "@/components/layout/Section";
+import { Cmd, Flag } from "@/components/terminal/prompt";
+import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 import { contact, site } from "@/lib/content";
 
 /** Contato — mesmo conteúdo da versão clean, embrulhado na sessão. */
-export default function GeekContact() {
+export default function Contact() {
   return (
-    <GeekSection
+    <Section
       id="contato"
       command={
         <>
@@ -46,6 +46,6 @@ export default function GeekContact() {
           </a>
         </li>
       </ul>
-    </GeekSection>
+    </Section>
   );
 }
