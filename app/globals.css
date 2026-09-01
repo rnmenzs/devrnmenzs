@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens — tema escuro único, deliberado (dev/cyber).
+ * Acento primário: teal (identidade dos CVs) · secundário: violeta, uso pontual.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  --bg: #0a0f14;
+  --surface: #0f1721;
+  --surface-2: #141e2a;
+  --edge: #1e2a38;
+  --fg: #e6edf3;
+  --muted: #8fa1b3;
+
+  --accent: #2cc9de; /* teal — links, destaques, AA sobre --bg */
+  --accent-strong: #6ee2f0;
+  --accent-dim: #155e6b; /* teal profundo — bordas, glows */
+  --violet: #a78bfa; /* uso pontual: tags, gradientes */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-edge: var(--edge);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-dim: var(--accent-dim);
+  --color-violet: var(--violet);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* nav fixo não cobre o alvo da âncora */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+}
+
+/* Elementos interativos: sem delay/zoom de double-tap no mobile */
+a,
+button {
+  touch-action: manipulation;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
