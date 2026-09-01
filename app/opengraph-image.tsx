@@ -5,6 +5,7 @@ export const alt = `${site.name} — ${site.headline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/** Preview OG na paleta do terminal Red Team Ops (app/geek.css). */
 export default function OpengraphImage() {
   return new ImageResponse(
     (
@@ -16,22 +17,22 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          backgroundColor: "#0a0f14",
+          backgroundColor: "#141414",
           backgroundImage:
-            "radial-gradient(ellipse 80% 60% at 70% 20%, rgba(44, 201, 222, 0.12), transparent)",
-          color: "#e6edf3",
+            "radial-gradient(ellipse 80% 60% at 70% 20%, rgba(255, 82, 82, 0.10), transparent)",
+          color: "#e8e8e8",
           fontSize: 32,
         }}
       >
         <div
           style={{
             display: "flex",
-            color: "#2cc9de",
+            color: "#7ce38b",
             fontSize: 28,
             marginBottom: 24,
           }}
         >
-          {`~/${site.shortName} $`}
+          visitor@rnmenzs:~$ finger renan
         </div>
         <div
           style={{
@@ -40,13 +41,12 @@ export default function OpengraphImage() {
             fontWeight: 700,
             letterSpacing: "-2px",
             marginBottom: 24,
+            color: "#ff5252",
           }}
         >
           {site.name}
         </div>
-        <div
-          style={{ display: "flex", fontSize: 40, color: "#8fa1b3" }}
-        >
+        <div style={{ display: "flex", fontSize: 40, color: "#ff8a80" }}>
           {site.headline}
         </div>
         <div
@@ -54,7 +54,7 @@ export default function OpengraphImage() {
             display: "flex",
             marginTop: 48,
             fontSize: 26,
-            color: "#2cc9de",
+            color: "#7ce38b",
           }}
         >
           {seo.ogStackLine}

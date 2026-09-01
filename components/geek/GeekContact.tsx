@@ -1,15 +1,24 @@
-import Section from "@/components/Section";
+import GeekSection from "@/components/geek/GeekSection";
+import { Cmd, Flag } from "@/components/geek/prompt";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { contact, site } from "@/lib/content";
 
-/** Seção 06 — Contato: pitch, e-mail e redes. Renderizada dentro de <main>. */
-export default function Contact() {
+/** Contato — mesmo conteúdo da versão clean, embrulhado na sessão. */
+export default function GeekContact() {
   return (
-    <Section id="contato" index="06" title="Contato">
-      <p className="max-w-2xl text-lg text-muted">{contact.pitch}</p>
+    <GeekSection
+      id="contato"
+      command={
+        <>
+          <Cmd>./contato.sh</Cmd> <Flag>--remoto</Flag>
+        </>
+      }
+      title="Contato"
+    >
+      <p className="max-w-2xl text-muted">{contact.pitch}</p>
       <a
         href={`mailto:${site.email}`}
-        className="mt-6 inline-flex min-h-11 items-center break-all font-mono text-xl text-accent transition-colors duration-200 hover:text-accent-strong hover:underline sm:text-2xl"
+        className="mt-6 inline-flex min-h-11 items-center break-all text-lg font-medium text-accent transition-colors duration-200 hover:text-accent-strong hover:underline sm:text-2xl"
       >
         {site.email}
       </a>
@@ -37,6 +46,6 @@ export default function Contact() {
           </a>
         </li>
       </ul>
-    </Section>
+    </GeekSection>
   );
 }

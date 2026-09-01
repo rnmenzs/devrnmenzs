@@ -1,27 +1,27 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
-import Skills from "@/components/Skills";
-import Education from "@/components/Education";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import GeekNav from "@/components/geek/GeekNav";
+import GeekHero from "@/components/geek/GeekHero";
+import GeekAbout from "@/components/geek/GeekAbout";
+import GeekProjects from "@/components/geek/GeekProjects";
+import GeekExperience from "@/components/geek/GeekExperience";
+import GeekSkills from "@/components/geek/GeekSkills";
+import GeekEducation from "@/components/geek/GeekEducation";
+import GeekContact from "@/components/geek/GeekContact";
+import GeekFooter from "@/components/geek/GeekFooter";
 
 export default function Home() {
   return (
-    <>
-      <Nav />
-      <main id="conteudo" tabIndex={-1}>
-        <Hero />
-        <About />
-        <Projects />
-        <Experience />
-        <Skills />
-        <Education />
-        <Contact />
+    <div className="geek flex min-h-svh flex-1 flex-col">
+      <GeekNav />
+      <main id="conteudo" tabIndex={-1} className="flex-1">
+        <GeekHero />
+        <GeekAbout />
+        <GeekProjects />
+        <GeekExperience />
+        <GeekSkills />
+        <GeekEducation />
+        <GeekContact />
       </main>
-      <Footer />
-    </>
+      <GeekFooter />
+    </div>
   );
 }

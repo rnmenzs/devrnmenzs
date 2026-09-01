@@ -1,0 +1,130 @@
+/*
+ * Tema do site — a página inteira é uma sessão de terminal (Red Team Ops).
+ * Escopo: tudo sob .geek — remapeia os MESMOS tokens de globals.css
+ * (as classes Tailwind bg-bg, text-accent etc. continuam funcionando)
+ * e adiciona as cores ANSI extras da "sintaxe shell".
+ * Alguns tons fogem 1 passo do esquema oficial para fechar contraste AA.
+ */
+
+/* Overscroll/rubber-band não vaza o fundo do tema base */
+body:has(.geek) {
+  background: #141414;
+}
+
+/* ── Red Team Ops — quase preto neutro, vermelho de identidade ── */
+.geek {
+  --bg: #141414;
+  --surface: #0d0d0d; /* chrome do terminal, cards */
+  --surface-2: #1f1f1f;
+  --edge: #2e2e2e;
+  --fg: #e8e8e8;
+  --muted: #a8a8a8;
+
+  --accent: #7ce38b; /* verde — prompt, links, foco */
+  --accent-strong: #9df0aa;
+  --accent-dim: #1e4726; /* bordas, seleção */
+  --violet: #ff5252; /* papel "identidade" (headings, host, empresa) = vermelho red team */
+
+  --ansi-cyan: #79c0ff; /* paths, dirs, flags, portas */
+  --ansi-pink: #ff8a80; /* headline, rótulos de campo */
+  --ansi-yellow: #ffcb6b;
+  --ansi-orange: #ffb454; /* hashes de commit */
+  --ansi-red: #ff5252; /* segurança/red team */
+  --ansi-comment: #6e6e6e; /* SÓ decoração aria-hidden */
+
+  --banner-from: #ff5252;
+  --banner-to: #ffb454;
+
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.9375rem; /* 15px na base 16, escala com a preferência do usuário */
+  line-height: 1.7;
+}
+
+/* Cores ANSI como classes utilitárias do tema */
+.g-cyan {
+  color: var(--ansi-cyan);
+}
+.g-pink {
+  color: var(--ansi-pink);
+}
+.g-yellow {
+  color: var(--ansi-yellow);
+}
+.g-orange {
+  color: var(--ansi-orange);
+}
+.g-red {
+  color: var(--ansi-red);
+}
+.g-dim {
+  color: var(--ansi-comment);
+}
+
+/* Chip de status "em andamento" (amarelo ANSI com borda translúcida) */
+.g-badge-yellow {
+  color: var(--ansi-yellow);
+  border: 1px solid color-mix(in oklab, var(--ansi-yellow) 40%, transparent);
+}
+
+/* Banner ASCII do hero — gradiente na dupla de cores do tema */
+.geek-banner {
+  background: linear-gradient(135deg, var(--banner-from) 30%, var(--banner-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Cursor de bloco (última linha do hero); só pisca sem reduced-motion */
+.geek-cursor::after {
+  content: "▋";
+  margin-left: 0.15em;
+  color: var(--accent);
+}
+
+/*
+ * Sequência de boot do hero: comandos "digitam" (clip-path em steps) e as
+ * saídas aparecem em seguida. Cada linha define o delay via --d inline.
+ * As animações SÓ existem em no-preference: com reduced-motion nenhuma
+ * classe anima e tudo fica visível de imediato (delay incluso).
+ */
+.geek-typed {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .geek-cursor::after {
+    animation: geek-blink 1.1s steps(2, jump-none) infinite;
+  }
+  .geek-typed {
+    animation: geek-typing 0.55s steps(20, end) var(--d, 0s) both;
+  }
+  .geek-out {
+    animation: geek-appear 0.15s ease-out var(--d, 0s) both;
+  }
+}
+
+@keyframes geek-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes geek-typing {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 -0.2em 0 0);
+  }
+}
+
+@keyframes geek-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

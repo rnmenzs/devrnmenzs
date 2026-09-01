@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { SITE_URL, seo, site } from "@/lib/content";
 import "./globals.css";
+import "./geek.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -37,9 +38,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-/** Site dark-only: a UI do navegador mobile acompanha o fundo (--bg). */
+/** Site dark-only: a UI do navegador mobile acompanha o chrome do terminal. */
 export const viewport: Viewport = {
-  themeColor: "#0a0f14",
+  themeColor: "#0d0d0d",
 };
 
 const [addressLocality, addressRegion] = site.location
