@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next";
+import Analytics from "@/components/Analytics";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { SITE_URL, seo, site } from "@/lib/content";
 import "./globals.css";
