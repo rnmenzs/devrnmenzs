@@ -121,6 +121,24 @@ export default function Education() {
                   ...
                 </p>
               )}
+              {edu.finalProject ? (
+                <p className="mt-3 text-sm text-muted">
+                  {edu.finalProject.label}
+                  {edu.finalProject.url ? (
+                    <>
+                      {" — "}
+                      <a
+                        href={edu.finalProject.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-accent transition-colors duration-200 hover:text-accent-strong hover:underline"
+                      >
+                        código público
+                      </a>
+                    </>
+                  ) : null}
+                </p>
+              ) : null}
               {edu.topics ? (
                 <ul
                   className="mt-4 flex flex-wrap gap-2"
