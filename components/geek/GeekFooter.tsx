@@ -4,7 +4,7 @@ import { site } from "@/lib/content";
 export default function GeekFooter() {
   return (
     <footer className="border-t border-edge bg-surface-2">
-      <div className="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-x-6 px-6 py-1.5 text-xs">
+      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-6 px-6 py-1.5 text-xs">
         <p className="flex flex-wrap items-center gap-x-4">
           <span aria-hidden="true" className="text-accent">
             [rnmenzs]

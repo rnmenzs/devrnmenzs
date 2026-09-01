@@ -22,7 +22,7 @@ export default function GeekSection({
   children,
 }: GeekSectionProps) {
   return (
-    <section id={id} className="mx-auto w-full max-w-3xl px-6 py-14 sm:py-20">
+    <section id={id} className="mx-auto w-full max-w-5xl px-6 py-14 sm:py-20">
       <p aria-hidden="true" className="text-sm">
         <Prompt />
         {command}

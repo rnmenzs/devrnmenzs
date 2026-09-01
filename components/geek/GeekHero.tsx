@@ -30,7 +30,7 @@ export default function GeekHero() {
   return (
     <section
       id="inicio"
-      className="mx-auto w-full max-w-3xl px-6 pb-16 pt-28 sm:pb-24 sm:pt-36"
+      className="mx-auto w-full max-w-5xl px-6 pb-16 pt-28 sm:pb-24 sm:pt-36"
     >
       <div className="text-sm">
         <BootLine d={0} host="local">
