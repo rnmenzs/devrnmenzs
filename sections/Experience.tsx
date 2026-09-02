@@ -1,6 +1,6 @@
 import Section from "@/components/Section";
 import { Arg, Cmd, Flag } from "@/components/prompt";
-import { experience } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n/types";
 
 /** Hash fake determinístico (estilo git) a partir de empresa+período — só decoração. */
 function fakeHash(seed: string) {
@@ -10,7 +10,7 @@ function fakeHash(seed: string) {
 }
 
 /** Experiência como `git log`: cada cargo é um commit na linha do tempo. */
-export default function Experience() {
+export default function Experience({ dict }: { dict: Dictionary }) {
   return (
     <Section
       id="experiencia"
@@ -20,10 +20,10 @@ export default function Experience() {
           <Flag>--abbrev-commit</Flag>
         </>
       }
-      title="Experiência"
+      title={dict.titles.experience}
     >
       <ol className="border-l border-edge">
-        {experience.map((job, i) => (
+        {dict.experience.map((job, i) => (
           <li
             key={`${job.company}-${job.period}`}
             className="relative pb-10 pl-8 last:pb-0"

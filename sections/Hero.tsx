@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { site } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n/types";
 import { Arg, Cmd, Flag, HOST, Prompt } from "@/components/prompt";
 
 /** Delay de animação por linha (consumido por .geek-out/.geek-typed). */
@@ -25,8 +26,8 @@ function BootLine({
   );
 }
 
-/** Hero geek: boot de uma sessão ssh (CSS puro; some com prefers-reduced-motion). */
-export default function Hero() {
+/** Hero: boot de uma sessão ssh (CSS puro; some com prefers-reduced-motion). */
+export default function Hero({ dict }: { dict: Dictionary }) {
   return (
     <section
       id="inicio"
@@ -77,10 +78,10 @@ export default function Hero() {
           {site.name}
         </h1>
         <p className="g-pink mt-1 text-lg font-bold sm:text-xl">
-          {site.headline}
+          {dict.site.headline}
         </p>
-        <p className="mt-5 max-w-2xl text-fg">{site.tagline}</p>
-        <p className="mt-2 max-w-2xl text-muted">{site.sub}</p>
+        <p className="mt-5 max-w-2xl text-fg">{dict.site.tagline}</p>
+        <p className="mt-2 max-w-2xl text-muted">{dict.site.sub}</p>
       </div>
 
       <div className="mt-10 text-sm">
@@ -91,7 +92,7 @@ export default function Hero() {
         <ul
           className="geek-out mt-2 flex flex-wrap gap-x-7 gap-y-2"
           style={delay(4.5)}
-          aria-label="Links principais"
+          aria-label={dict.ui.heroLinks}
         >
           <li>
             <a
