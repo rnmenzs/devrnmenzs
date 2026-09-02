@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n/config";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import KonamiCode from "@/components/KonamiCode";
+import RootMode from "@/components/RootMode";
 
 /**
  * Layout do site: a janela de terminal — titlebar (Nav), área de conteúdo
@@ -26,8 +27,9 @@ export default function TerminalLayout({
         {children}
       </main>
       <Footer />
-      {/* Detector do Konami code — efeito a ser plugado depois. */}
+      {/* Konami code: detector + efeito (modo root / escalação de privilégio). */}
       <KonamiCode />
+      <RootMode />
     </div>
   );
 }
