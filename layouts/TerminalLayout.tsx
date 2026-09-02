@@ -3,6 +3,7 @@ import type { Dictionary } from "@/lib/i18n/types";
 import type { Locale } from "@/lib/i18n/config";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import KonamiCode from "@/components/KonamiCode";
 
 /**
  * Layout do site: a janela de terminal — titlebar (Nav), área de conteúdo
@@ -25,6 +26,8 @@ export default function TerminalLayout({
         {children}
       </main>
       <Footer />
+      {/* Detector do Konami code — efeito a ser plugado depois. */}
+      <KonamiCode />
     </div>
   );
 }
