@@ -47,7 +47,8 @@ export default function Nav({
           </span>
 
           <span className="flex min-h-11 items-center text-sm text-muted">
-            visitor@{HOST}:~
+            <span className="pmt-visitor">visitor</span>
+            <span className="pmt-root">root</span>@{HOST}:~
           </span>
         </div>
 
