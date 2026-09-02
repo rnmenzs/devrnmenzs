@@ -1,27 +1,18 @@
 import Section from "@/components/Section";
 import { Chip } from "@/components/Chip";
 import { Arg, Cmd, Flag, Prompt } from "@/components/prompt";
-import { certificationTracks, education } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n/types";
 
 const MONTHS: Record<string, number> = {
-  Jan: 0,
-  Fev: 1,
-  Mar: 2,
-  Abr: 3,
-  Mai: 4,
-  Jun: 5,
-  Jul: 6,
-  Ago: 7,
-  Set: 8,
-  Out: 9,
-  Nov: 10,
-  Dez: 11,
+  Jan: 0, Fev: 1, Mar: 2, Abr: 3, Mai: 4, Jun: 5,
+  Jul: 6, Ago: 7, Set: 8, Out: 9, Nov: 10, Dez: 11,
+  // formas EN/ES (a barra só usa o ano, mas mantém o parser tolerante)
+  Feb: 1, Apr: 3, May: 4, Aug: 7, Sep: 8, Oct: 9, Dec: 11, Ene: 0, Dic: 11,
 };
 
 /**
- * Fração de tempo decorrido do período "Mês AAAA – Mês AAAA" — alimenta a
- * barra decorativa de download. O status real ("em andamento") vem SEMPRE
- * de lib/content.ts; a barra nunca chega em 100% (guardrail do handoff).
+ * Fração de tempo decorrido do período — alimenta a barra decorativa. O status
+ * real ("em andamento") vem SEMPRE do dicionário; a barra nunca chega em 100%.
  */
 function elapsedFraction(period: string) {
   const m = period.match(/^(\w{3}) (\d{4}) – (\w{3}) (\d{4})$/);
@@ -46,7 +37,13 @@ function pkgVersion(period: string) {
 }
 
 /** Barra estilo apt/pacman para formação em andamento (decorativa, nunca 100%). */
-function ProgressBar({ period }: { period: string }) {
+function ProgressBar({
+  period,
+  downloading,
+}: {
+  period: string;
+  downloading: string;
+}) {
   const fraction = elapsedFraction(period);
   const fill = Math.round(fraction * BAR_WIDTH);
   const pct = Math.round(fraction * 100);
@@ -54,15 +51,15 @@ function ProgressBar({ period }: { period: string }) {
     <p aria-hidden="true" className="mt-3 text-xs">
       <span className="text-accent">{"█".repeat(fill)}</span>
       <span className="text-edge">{"░".repeat(BAR_WIDTH - fill)}</span>
-      <span className="g-dim"> {pct}% · baixando módulos…</span>
+      <span className="g-dim">
+        {" "}
+        {pct}% · {downloading}
+      </span>
     </p>
   );
 }
 
-/**
- * "Nome — meta (detalhe)" → nome + resto em muted; itens sem travessão
- * caem no parêntese final ou ficam inteiros.
- */
+/** "Nome — meta" → nome + resto em muted; itens sem travessão caem no parêntese. */
 function splitCert(item: string) {
   const dash = item.split(" — ");
   if (dash.length > 1) {
@@ -74,7 +71,8 @@ function splitCert(item: string) {
 }
 
 /** Formação como instalação de pacotes; certificações como listagem dpkg. */
-export default function Education() {
+export default function Education({ dict }: { dict: Dictionary }) {
+  const { ui } = dict;
   return (
     <Section
       id="formacao"
@@ -83,17 +81,17 @@ export default function Education() {
           <Cmd>sudo</Cmd> apt install <Arg>formacao</Arg>
         </>
       }
-      title="Formação & Certificações"
+      title={dict.titles.education}
     >
       <div aria-hidden="true" className="g-dim text-xs leading-relaxed">
-        <p>[sudo] senha para visitor:</p>
-        <p>Lendo listas de pacotes... Pronto</p>
-        <p>Construindo árvore de dependências...</p>
-        <p>Lendo informação de estado... Pronto</p>
+        <p>{ui.aptSudoPassword}</p>
+        <p>{ui.aptReadingLists}</p>
+        <p>{ui.aptBuildingTree}</p>
+        <p>{ui.aptReadingState}</p>
       </div>
 
       <div className="mt-6 flex flex-col gap-6">
-        {education.map((edu) => {
+        {dict.education.map((edu) => {
           const emAndamento = Boolean(edu.status);
           return (
             <article
@@ -114,11 +112,14 @@ export default function Education() {
                 {edu.school} · {edu.period}
               </p>
               {emAndamento ? (
-                <ProgressBar period={edu.period} />
+                <ProgressBar
+                  period={edu.period}
+                  downloading={ui.aptDownloading}
+                />
               ) : (
                 <p aria-hidden="true" className="g-dim mt-3 text-xs">
-                  Configurando {pkgName(edu.school)} ({pkgVersion(edu.period)})
-                  ...
+                  {ui.aptConfiguring} {pkgName(edu.school)} (
+                  {pkgVersion(edu.period)}) ...
                 </p>
               )}
               {edu.finalProject ? (
@@ -133,7 +134,7 @@ export default function Education() {
                         rel="noopener noreferrer"
                         className="text-accent transition-colors duration-200 hover:text-accent-strong hover:underline"
                       >
-                        código público
+                        {ui.publicCode}
                       </a>
                     </>
                   ) : null}
@@ -142,7 +143,7 @@ export default function Education() {
               {edu.topics ? (
                 <ul
                   className="mt-4 flex flex-wrap gap-2"
-                  aria-label={`Módulos de ${edu.degree}`}
+                  aria-label={`${ui.ariaModulesOf} ${edu.degree}`}
                 >
                   {edu.topics.map((topic) => (
                     <Chip key={topic}>{topic}</Chip>
@@ -158,7 +159,7 @@ export default function Education() {
         <span aria-hidden="true" className="g-dim">
           {"## "}
         </span>
-        Certificações
+        {ui.certificationsHeading}
       </h3>
       <p aria-hidden="true" className="mt-4 text-sm">
         <Prompt />
@@ -167,7 +168,7 @@ export default function Education() {
       </p>
 
       <div className="mt-4 flex flex-col gap-6">
-        {certificationTracks.map((track) => (
+        {dict.certificationTracks.map((track) => (
           <div key={track.track}>
             <h4 className="text-sm font-bold text-fg">
               <span aria-hidden="true" className="g-dim">

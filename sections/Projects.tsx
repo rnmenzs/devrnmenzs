@@ -1,7 +1,7 @@
 import Section from "@/components/Section";
-import { Chip } from "@/components/Chip";
 import { Arg, Cmd } from "@/components/prompt";
-import { projects } from "@/lib/content";
+import { Chip } from "@/components/Chip";
+import type { Dictionary } from "@/lib/i18n/types";
 
 /** Nome de arquivo determinístico a partir do título do projeto (só decoração). */
 function toFilename(title: string) {
@@ -15,7 +15,8 @@ function toFilename(title: string) {
 }
 
 /** Projetos como arquivos markdown abertos no `bat` (header de arquivo + corpo). */
-export default function Projects() {
+export default function Projects({ dict }: { dict: Dictionary }) {
+  const { ui } = dict;
   return (
     <Section
       id="projetos"
@@ -24,10 +25,10 @@ export default function Projects() {
           <Cmd>bat</Cmd> <Arg>projetos/*.md</Arg>
         </>
       }
-      title="Projetos em destaque"
+      title={dict.titles.projects}
     >
       <div className="flex flex-col gap-8">
-        {projects.map((project) => (
+        {dict.projects.map((project) => (
           <article
             key={project.title}
             className="overflow-hidden rounded-md border border-edge bg-surface"
@@ -56,7 +57,7 @@ export default function Projects() {
                     <span aria-hidden="true" className="g-dim">
                       {"## "}
                     </span>
-                    problema
+                    {ui.problem}
                   </dt>
                   <dd className="mt-1.5 text-sm leading-relaxed text-muted">
                     {project.problem}
@@ -68,7 +69,7 @@ export default function Projects() {
                     <span aria-hidden="true" className="g-dim">
                       {"## "}
                     </span>
-                    solução
+                    {ui.solution}
                   </dt>
                   <dd className="mt-1.5 text-sm leading-relaxed text-muted">
                     {project.solution}
@@ -80,7 +81,7 @@ export default function Projects() {
                     <span aria-hidden="true" className="g-dim">
                       {"## "}
                     </span>
-                    resultado
+                    {ui.result}
                   </dt>
                   <dd className="mt-1.5 text-sm font-medium leading-relaxed text-fg">
                     {project.highlight}
@@ -89,11 +90,11 @@ export default function Projects() {
               </dl>
 
               <p aria-hidden="true" className="g-dim mt-6 text-xs">
-                stack:
+                {ui.stack}
               </p>
               <ul
                 className="mt-2 flex flex-wrap gap-2"
-                aria-label={`Stack do projeto ${project.title}`}
+                aria-label={`${ui.ariaStackOf} ${project.title}`}
               >
                 {project.stack.map((tech) => (
                   <Chip key={tech}>{tech}</Chip>

@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# rnmenzs.com — Portfólio
 
-## Getting Started
+Portfólio pessoal de **Renan Leme Menezes**, renderizado como uma **sessão de
+terminal** (tema Red Team Ops). No ar em **[www.rnmenzs.com](https://www.rnmenzs.com)**.
 
-First, run the development server:
+## Stack
+
+- **[Next.js 16](https://nextjs.org)** (App Router, Turbopack) + **React 19**
+- **TypeScript** + **Tailwind CSS v4**
+- Deploy na **Vercel** · **Vercel Web Analytics**
+- Fontes: Inter (texto) + JetBrains Mono (terminal)
+
+## Rodar localmente
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # build de produção
+npm run start   # servir o build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Este é um Next.js com convenções próprias — antes de mexer no roteamento,
+> ver `AGENTS.md` e a doc em `node_modules/next/dist/docs/`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estrutura
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  [lang]/            layout (html lang, metadata, JSON-LD) + page + opengraph
+  globals.css        tokens base
+  geek.css           tema do terminal (Red Team Ops) sob a classe .geek
+  sitemap.ts · robots.ts · favicon.ico
+proxy.ts             roteamento de idioma (PT na raiz)
+components/          peças reutilizáveis (Nav, Footer, Section, Chip,
+                     prompt, icons, LangSwitcher)
+sections/            uma seção por arquivo (Hero, About, Projects,
+                     Experience, Skills, Education, Contact)
+layouts/             TerminalLayout — monta a janela (Nav + main + Footer)
+lib/
+  content.ts         dados INVARIANTES entre idiomas (links, portas, tokens)
+  i18n/              config, tipos e dicionários de conteúdo
+```
 
-## Learn More
+Hierarquia de componentização (menor → maior): `components/` → `sections/` →
+`layouts/`. Convenções visuais e metáforas do terminal em `DESIGN.md`.
 
-To learn more about Next.js, take a look at the following resources:
+## Conteúdo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Todo texto vem de dados, não de JSX:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **`lib/i18n/dictionaries/{pt,en,es}.ts`** — conteúdo traduzível (bio,
+  projetos, experiência, certificações, rótulos). `pt.ts` é a fonte.
+- **`lib/content.ts`** — o que não muda por idioma: links, e-mail, portas do
+  nmap, tokens de stack.
 
-## Deploy on Vercel
+Guardrails (não quebrar): sem telefone; pós FIAP sempre "em andamento"; o
+painel de tickets foi **integração** com LLM (não autoria); nunca inventar
+métrica ou tecnologia.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Idiomas (i18n)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Site trilíngue **PT / EN / ES**:
+
+- **PT-BR** na raiz (`/`, sem prefixo — preserva o canonical indexado)
+- **EN** em `/en` · **ES** em `/es`
+- `proxy.ts` serve o PT em `/` e redireciona `/pt` → `/`
+- `app/[lang]/` define `<html lang>`, `hreflang`, canonical e OG por idioma
+- Os **comandos** do terminal são invariantes; só as saídas em prosa traduzem
+- Seletor de idioma (`LANG=`) na barra do terminal
+
+## Deploy
+
+Conectado à Vercel. Fluxo de branches:
+
+```
+feature-branch (base: dev)  →  dev (preview)  →  main (produção)
+```
+
+Push na `main` publica em produção. Cada push na `dev`/feature gera um
+preview deploy próprio.
+
+## Segurança
+
+Headers configurados em `next.config.ts`: CSP, HSTS (preload),
+`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`,
+`X-Frame-Options`. Há um `public/.well-known/security.txt`.
