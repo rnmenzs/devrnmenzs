@@ -6,7 +6,7 @@
  */
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.rnmenzs.com";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.rnmenzs.com.br";
 
 /** Identidade e links — não mudam por idioma. */
 export const site = {
