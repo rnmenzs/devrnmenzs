@@ -128,3 +128,60 @@ body:has(.geek) {
     opacity: 1;
   }
 }
+
+/*
+ * Easter egg do Konami code — modo root (escalação de privilégio).
+ * O detector (components/KonamiCode) dispara; RootMode seta data-root no
+ * <html>. Aqui os prompts viram root@…# em vermelho. Estado default esconde
+ * as formas "root".
+ */
+.pmt-root,
+.pmt-hash {
+  display: none;
+}
+
+:root[data-root] .pmt-visitor,
+:root[data-root] .pmt-dollar {
+  display: none;
+}
+:root[data-root] .pmt-root {
+  display: inline;
+  color: var(--ansi-red);
+}
+:root[data-root] .pmt-hash {
+  display: inline;
+}
+
+/* Toast da elevação de privilégio (auto-some). */
+.root-toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 2.25rem;
+  z-index: 60;
+  max-width: min(92vw, 30rem);
+  border: 1px solid var(--ansi-red);
+  border-radius: 0.375rem;
+  background: var(--surface);
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--ansi-red) 25%, transparent),
+    0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .root-toast {
+    animation: root-toast-in 0.25s ease-out both;
+  }
+}
+
+@keyframes root-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
