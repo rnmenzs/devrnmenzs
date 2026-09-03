@@ -185,6 +185,9 @@ const es: Dictionary = {
         "Aceleración Santander — Ciberseguridad & Seguridad en Vibe Coding — DIO, 2026",
         "Introducción a la Recolección y Análisis de Seguridad Cibernética — DIO, 2026",
         "Temas de Ingeniería Social — DIO, 2026",
+        "Ciberseguridad Esencial: Bases para Proyectos con Datos e IA — DIO, 2026",
+        "Introducción a DevSecOps — DIO, 2026",
+        "Tendencias en IA y Ciberseguridad Aplicadas al Proyecto Final — DIO, 2026",
       ],
     },
     {
