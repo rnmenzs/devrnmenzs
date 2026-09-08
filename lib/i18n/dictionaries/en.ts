@@ -181,13 +181,9 @@ const en: Dictionary = {
     {
       track: "Cybersecurity",
       items: [
+        "Bradesco Bootcamp GenAI, Data & Cyber — DIO, 2026 (52h: essential cybersecurity, DevSecOps, social engineering, security data collection & analysis, applied AI)",
         "Santander Cybersecurity Bootcamp — DIO, 2024 (fundamentals, pentest, deep web & anonymity, principles)",
         "Santander Acceleration — Cybersecurity & Security in Vibe Coding — DIO, 2026",
-        "Introduction to Cybersecurity Data Collection & Analysis — DIO, 2026",
-        "Topics in Social Engineering — DIO, 2026",
-        "Essential Cybersecurity: Foundations for Data & AI Projects — DIO, 2026",
-        "Introduction to DevSecOps — DIO, 2026",
-        "Trends in AI and Cybersecurity Applied to the Final Project — DIO, 2026",
       ],
     },
     {
